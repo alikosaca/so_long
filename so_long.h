@@ -1,6 +1,3 @@
-
-
-
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -47,10 +44,15 @@ typedef struct s_img
 }               t_img;
 
 
-int		file_control(int argc, char *argv);
+int		file_name_control(int argc, char *argv);
 int		map_read_c(t_map *map, char *f_name);
 int		map_read_control(t_map *map, char *f_name);
-void	map_read(t_map *map, char *f_name);
+void	map_read_y(t_map *map, char *f_name);
+
+
+
+
+
 int		map_control(t_map *map);
 int		rectangle_c(t_map *map);
 void	char_control(t_map *map, int x, int y);

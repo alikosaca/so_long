@@ -26,17 +26,28 @@ int     file_name_control(char *file_name)
     {
         return (0);
     }
-    ft_printf("Ups! Dosya Uzantısı Hatalı!");
     return (1);
 }
 
-//map.ber 
 
-int     main(int ac, char *av[])
+int main(int ac, char *av[])
 {
+    t_map map;
     if (ac != 2)
+    {
         return (1);
+    }
     if (file_name_control(av[1]))
+    {
+        ft_printf("Ups! Dosya Uzantısı Hatalı!");
         return (1);
+    }
+    if (map_read_c(&map, av[1]))
+    {
+        ft_printf("Ups! Dosya okuma hatası");
+        return (1);
+    }
+
+
     return (0);
 }
