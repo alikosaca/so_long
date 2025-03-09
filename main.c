@@ -29,10 +29,21 @@ int     file_name_control(char *file_name)
     return (1);
 }
 
+int map_control(t_map	*map, t_player *player)
+{
+	dikdortgen_kontrol(map);
+	karakter_kontrol(map, player);
+    duvar_kontrol(map);
+	free_map(map); //?
+	return (0);
+}
 
+
+//player için malloc ile yer ayırmadık!
 int main(int ac, char *av[])
 {
     t_map map;
+    t_player player;
     if (ac != 2)
     {
         return (1);
@@ -46,6 +57,11 @@ int main(int ac, char *av[])
     {
         ft_printf("Ups! Dosya okuma hatası");
         return (1);
+    }
+    if (map_control(&map, &player))
+    {
+        ft_printf("Ups! Hata:");
+        return (0);
     }
 
 

@@ -49,7 +49,7 @@ void map_read_y(t_map *map, char *file_name)
     map->map_line = malloc(sizeof(char *) * len_y + 1);
     if (!map->map_line)
         return ;
-    map->map_line[len_y + 1] = NULL;
+    map->map_line[len_y] = NULL; // len_y +1 olmalı mı?
     map->map_y_line = len_y; 
     
 }

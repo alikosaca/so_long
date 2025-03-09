@@ -14,11 +14,11 @@
 typedef struct s_map
 {
 	char	**map_line;
-    int exit_x;
-    int exit_y;
-	int		e_count;
-	int		p_count;
-	int		c_count;
+    int		exit_x;
+    int		exit_y;
+	int		player_count;
+	int		exit_count;
+	int		coin_count;
 	int		p_move_c;
 	int		map_y_line;
 	char	*f_name;
@@ -28,8 +28,8 @@ typedef struct s_map
 
 typedef struct s_player
 {
-    int		p_x;
-	int		p_y;
+    int		x_location;
+	int		y_location;
 }               t_player;
 
 typedef struct s_img
@@ -44,16 +44,22 @@ typedef struct s_img
 }               t_img;
 
 
-int		file_name_control(int argc, char *argv);
+int		file_name_control(char *av);
 int		map_read_c(t_map *map, char *f_name);
 int		map_read_control(t_map *map, char *f_name);
 void	map_read_y(t_map *map, char *f_name);
+//player_controll
+void	dikdortgen_kontrol(t_map *map);
+void	karakter_kontrol(t_map *map, t_player *player);
+void	karakter_kontrol_islem(t_map *map, t_player *player, int x, int y);
 
 
+//all_errors
+void	error_dikdortgen(t_map *map);
+void	error_map(t_map *map, char *message);
 
 
-
-int		map_control(t_map *map);
+int		map_control(t_map *map, t_player *player);
 int		rectangle_c(t_map *map);
 void	char_control(t_map *map, int x, int y);
 int		char_c(t_map *map);
