@@ -3,10 +3,10 @@
 
 #include "../get_next_line/get_next_line.h"
 #include "../ft_printf/ft_printf.h"
-
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
+#include "minilibx-linux/mlx.h"
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 
 # define MAP_CHAR "01CEP"
@@ -19,11 +19,16 @@ typedef struct s_map
 	int		player_count;
 	int		exit_count;
 	int		coin_count;
-	int		p_move_c;
+	int		p_move_controller;
 	int		map_y_line;
 	char	*f_name;
 	void	*mlx;
 	void	*mlx_win;
+	void	*img_player;
+	void	*img_wall;
+	void	*img_exit;
+	void	*img_space;
+	void	*img_coin; 
 }               t_map;
 
 typedef struct s_player
@@ -32,23 +37,12 @@ typedef struct s_player
 	int		y_location;
 }               t_player;
 
-typedef struct s_img
-{
-    void *img_player;
-    int *img_width;
-    int *img_height;
-    void *img_wall;
-    void *coin;
-    void *img_door;
-    
-}               t_img;
-
 //main.c
 int		file_name_control(char *file_name);
 int		map_control(t_map *map, t_player *player);
+void    map_init(t_map *map, char *file_name);
 
 
-int		map_read_control(t_map *map, char *f_name); //?
 //player_controll
 void	dikdortgen_kontrol(t_map *map);
 void	karakter_kontrol(t_map *map, t_player *player);
@@ -69,7 +63,7 @@ void	wall_control(t_map *map, int y, int x);
 void	character_control(t_map *map, int y, int x);
 
 //map_read
-int map_read_c(t_map *map, char *file_name);
+int map_read_control(t_map *map, char *file_name);
 void map_read_y(t_map *map, char *file_name);
 
 
@@ -84,6 +78,12 @@ void	vail_exit_control(t_map *map);
 // free_map
 void	free_map(t_map *map);
 
+//error_mlx
+void	error_mlx(t_map *map, char *message);
 
+//map_init
+void	create_xpm(t_map *map);
+void	window_Image(t_map *map, t_player *player);
 
+//void	error_mlx(t_map *map, char *message);
 #endif

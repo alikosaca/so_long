@@ -6,13 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 07:08:51 by root              #+#    #+#             */
-/*   Updated: 2025/03/11 07:09:19 by root             ###   ########.fr       */
+/*   Updated: 2025/03/11 15:08:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int map_read_c(t_map *map, char *file_name)
+int map_read_control(t_map *map, char *file_name)
 {
     int fd;
     int i;
@@ -39,7 +39,7 @@ int map_read_c(t_map *map, char *file_name)
 
 
 
-void map_read_y(t_map *map, char *file_name)
+void    map_read_y(t_map *map, char *file_name)
 {
     int fd;
     int len_y;
@@ -61,7 +61,7 @@ void map_read_y(t_map *map, char *file_name)
     map->map_line = malloc(sizeof(char *) * len_y + 1);
     if (!map->map_line)
         return ;
-    map->map_line[len_y] = NULL; // len_y +1 olmalı mı?
+    map->map_line[len_y] = NULL;
     map->map_y_line = len_y; 
     
 }

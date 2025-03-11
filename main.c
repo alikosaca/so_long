@@ -30,19 +30,33 @@ int     file_name_control(char *file_name)
     return (1);
 }
 
-int map_control(t_map	*map, t_player *player)
+void    map_control(t_map	*map, t_player *player)
 {
 	dikdortgen_kontrol(map);
 	karakter_kontrol(map, player);
     check_walls_and_character(map);
-    eleman_kontrol(map);
     check_vaild_path(map, player);
 	free_map(map);
-	return (0);
 }
 
+void    map_init(t_map *map, t_player *player, char *file_name)
+{
+    int x_px;
+    int y_px;
 
-//player için malloc ile yer ayırmadık!
+    map_read_control(map, file_name);
+    x_px = (ft_strlen(map->map_line[0]) - 1) * 64;
+    y_px = map->map_y_line * 64;
+    map->p_move_controller = 0; //gerek var mı?
+    map->mlx = mlx_init(map->mlx);
+    map->mlx_win = mlx_new_window(map->mlx, x_px, y_px, "SO_LONG");
+    if (!map->mlx || !map->mlx_win)
+        error_mlx(map, "mlx oluşturulamadı:/");
+
+    create_xpm(map);
+    window_Image(map, player);
+
+}
 int main(int ac, char *av[])
 {
     t_map map;
@@ -56,17 +70,13 @@ int main(int ac, char *av[])
         ft_printf("Ups! Dosya Uzantısı Hatalı!");
         return (1);
     }
-    if (map_read_c(&map, av[1]))
+    if (map_read_control(&map, av[1]))
     {
         ft_printf("Ups! Dosya okuma hatası");
         return (1);
     }
-    if (map_control(&map, &player))
-    {
-        ft_printf("Ups! Hata:");
-        return (0);
-    }
-
+    map_control(&map, &player);
+    map_init(&map, &player, av[1]);
 
     return (0);
 }
