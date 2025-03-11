@@ -22,7 +22,8 @@ int     file_name_control(char *file_name)
     if (file_name[file_name_len - 4] == '.' && \
         file_name[file_name_len - 3] == 'b' && \
         file_name[file_name_len - 2] == 'e' && \
-        file_name[file_name_len - 1] == 'r')
+        file_name[file_name_len - 1] == 'r' && \
+        file_name_len >= 5)
     {
         return (0);
     }
@@ -33,8 +34,10 @@ int map_control(t_map	*map, t_player *player)
 {
 	dikdortgen_kontrol(map);
 	karakter_kontrol(map, player);
-    duvar_kontrol(map);
-	free_map(map); //?
+    check_walls_and_character(map);
+    eleman_kontrol(map);
+    check_vaild_path(map, player);
+	free_map(map);
 	return (0);
 }
 

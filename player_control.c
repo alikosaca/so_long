@@ -8,7 +8,7 @@ void	dikdortgen_kontrol(t_map *map)
 	int x_first;
 
 	y_position = 0;
-	x_first = ft_strlen(map->map_line[y_position]);
+	x_first = (int)ft_strlen(map->map_line[y_position]);
 	while (y_position < (map->map_y_line))
 	{
 		x_len = 0;
@@ -33,7 +33,7 @@ void	karakter_kontrol(t_map *map, t_player *player)
 		error_map(map, "ÇIKIŞ");
 	if (map->coin_count != 1)
 		error_map(map, "TOPLANABILIR");
-	if (map->coin_count != 1)
+	if (map->player_count != 1)
 		error_map(map, "OYUNCU");
 }
 

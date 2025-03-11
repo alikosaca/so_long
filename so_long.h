@@ -43,46 +43,46 @@ typedef struct s_img
     
 }               t_img;
 
+//main.c
+int		file_name_control(char *file_name);
+int		map_control(t_map *map, t_player *player);
 
-int		file_name_control(char *av);
-int		map_read_c(t_map *map, char *f_name);
-int		map_read_control(t_map *map, char *f_name);
-void	map_read_y(t_map *map, char *f_name);
+
+int		map_read_control(t_map *map, char *f_name); //?
 //player_controll
 void	dikdortgen_kontrol(t_map *map);
 void	karakter_kontrol(t_map *map, t_player *player);
 void	karakter_kontrol_islem(t_map *map, t_player *player, int x, int y);
 
 
+
 //all_errors
 void	error_dikdortgen(t_map *map);
 void	error_map(t_map *map, char *message);
+void	error_wall_and_character(t_map *map, int err_y, int err_x);
+void	error_vail(t_map *map, char *message);
 
 
-int		map_control(t_map *map, t_player *player);
-int		rectangle_c(t_map *map);
-void	char_control(t_map *map, int x, int y);
-int		char_c(t_map *map);
-int		wall_c(t_map *map);
-int		wall_f_e(t_map *map, int y);
-int		wall_middle(t_map *map, int y);
-int		element_c(t_map *map);
+//wall_controll
+void	check_walls_and_character(t_map *map);
+void	wall_control(t_map *map, int y, int x);
+void	character_control(t_map *map, int y, int x);
+
+//map_read
+int map_read_c(t_map *map, char *file_name);
+void map_read_y(t_map *map, char *file_name);
+
+
+
+//check_vaild_path
+void	check_vaild_path(t_map *map, t_player *player);
+void	vaild_recursive(t_map *map, int y, int x);
+void	valid_control(t_map *map, int y, int x);
+void	vail_coin_control(t_map *map);
+void	vail_exit_control(t_map *map);
+
+// free_map
 void	free_map(t_map *map);
-void	recursive_p(t_map *map, int y, int x);
-int		valid_c(t_map *map);
-int		coin_c(t_map *map);
-int		exit_c(t_map *map);
-int		map_init(t_map *map, char	*argc);
-int		create_xpm(t_map *map);
-int		win_put_img(t_map *map);
-void	ft_put(t_map *map, void *img, int x, int y);
-int		ft_exit(t_map *map);
-int		ft_move(int key, t_map *map);
-void	map_move(t_map *map, int x, int y);
-
-
-
-
 
 
 
