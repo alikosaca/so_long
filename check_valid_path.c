@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:10:34 by root              #+#    #+#             */
-/*   Updated: 2025/03/15 07:32:51 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/15 07:55:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	check_vaild_path(t_map *map, t_player *player)
 	int	x;
 
 	y = player->y_location;
-	x = player->x_location;//? neden
+	x = player->x_location;
 	vaild_recursive(map, y, x);
 	vail_coin_control(map);
 	vail_exit_control(map);

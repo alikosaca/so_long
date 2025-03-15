@@ -9,6 +9,17 @@
 #include <stdlib.h>
 
 
+# define ESC 65307
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+
+# define UP 65362
+# define LEFT 65361
+# define BACK 65364
+# define RIGHT 65363
+
 # define MAP_CHAR "01CEP"
 
 typedef struct s_map
@@ -19,7 +30,7 @@ typedef struct s_map
 	int		player_count;
 	int		exit_count;
 	int		coin_count;
-	int		p_move_controller;
+	int		p_move_count;
 	int		map_y_line;
 	char	*f_name;
 	void	*mlx;
@@ -83,7 +94,15 @@ void	error_mlx(t_map *map, char *message);
 
 //map_init
 void	create_xpm(t_map *map);
-void	window_Image(t_map *map, t_player *player);
+void	render_map(t_map *map, t_player *player);
+void	init_mlx(t_map *map);
+void	view_window(t_map *map);
+
 
 //void	error_mlx(t_map *map, char *message);
+
+//player_movement
+int		key_hook(int keycode, t_map *map);
+
+
 #endif

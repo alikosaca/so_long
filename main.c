@@ -45,34 +45,31 @@ void    map_init(t_map *map, t_player *player, char *file_name)
     int y_px;
 
     map_read_control(map, file_name);
-    x_px = (ft_strlen(map->map_line[0]) - 1) * 64;
-    y_px = map->map_y_line * 64;
-    map->p_move_controller = 0; //gerek var mı?
-    map->mlx = mlx_init(map->mlx);
-    map->mlx_win = mlx_new_window(map->mlx, x_px, y_px, "SO_LONG");
-    if (!map->mlx || !map->mlx_win)
-        error_mlx(map, "mlx oluşturulamadı:/");
-
+    map->p_move_count = 0;
+    init_mlx(map);
     create_xpm(map);
-    window_Image(map, player);
-
+    view_window(map);
+    render_map(map, player);
+    mlx_key_hook(map->mlx_win, key_hook, map);
 }
+
 int main(int ac, char *av[])
 {
     t_map map;
     t_player player;
     if (ac != 2)
     {
+        ft_printf("Ups! Argüman sayısı hatalı:/");
         return (1);
     }
     if (file_name_control(av[1]))
     {
-        ft_printf("Ups! Dosya Uzantısı Hatalı!");
+        ft_printf("Ups! Dosya Uzantısı Hatalı:/");
         return (1);
     }
     if (map_read_control(&map, av[1]))
     {
-        ft_printf("Ups! Dosya okuma hatası");
+        ft_printf("Ups! Dosya okuma hatası:/");
         return (1);
     }
     map_control(&map, &player);
