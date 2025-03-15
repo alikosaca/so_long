@@ -74,7 +74,7 @@ void	vaild_recursive(t_map *map, int y, int x);
 void	valid_control(t_map *map, int y, int x);
 void	vail_coin_control(t_map *map);
 void	vail_exit_control(t_map *map);
-
+void	vail_exit_control(t_map *map)
 // free_map
 void	free_map(t_map *map);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:10:34 by root              #+#    #+#             */
-/*   Updated: 2025/03/11 11:12:43 by root             ###   ########.fr       */
+/*   Updated: 2025/03/15 07:32:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	vail_exit_control(t_map *map)
 	int x;
 
 	y = 0;
-	while (map->map_line[y][x])
+	while (map->map_line[y])
 	{
 		x = 0;
 		while (map->map_line[y][x] != 'E')
@@ -31,7 +31,7 @@ void	vail_exit_control(t_map *map)
 				map->map_line[y-1][x] != 'P')
 				error_vail(map, "Çıkış Kapısı");
 			else
-				break;
+				return ;
 		}
 		y++;
 	}
@@ -41,16 +41,17 @@ void	vail_coin_control(t_map *map)
 {
 	int y;
 	int x;
+	int x_count;
 
 	y = 0;
+	x_count = (int)ft_strlen(map->map_line[y]);
 	while (map->map_line[y])
 	{
 		x = 0;
-		while (map->map_line[y][x] == 'C')
-		{
-			error_vail(map, "Toplanabilir Eşya");
+		while (x <= x_count && map->map_line[y][x] != 'C')
 			x++;
-		}
+		if (map->map_line[y][x] == 'C')
+			error_vail(map, "Toplanabilir Eşya");
 		y++;
 	}
 }
@@ -60,7 +61,7 @@ void	valid_control(t_map *map, int y, int x)
 	if (map->map_line[y][x] == '0' || map->map_line[y][x] == 'C')
 	{
 		map->map_line[y][x] = 'P';
-		vaild_loop(map, y, x);
+		vaild_recursive(map, y, x);
 	}
 }
 
@@ -78,7 +79,8 @@ void	check_vaild_path(t_map *map, t_player *player)
 	int	x;
 
 	y = player->y_location;
-	x = player->x_location;
-	vaild_loop(map, y, x);
+	x = player->x_location;//? neden
+	vaild_recursive(map, y, x);
 	vail_coin_control(map);
+	vail_exit_control(map);
 }
