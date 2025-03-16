@@ -44,28 +44,37 @@ typedef struct s_map
 
 typedef struct s_player
 {
-    int		x_location;
-	int		y_location;
+    int		p_x_location;
+	int		p_y_location;
+	int		e_x_location;
+	int		e_y_location;
+	int		coin_collected;
 }               t_player;
 
+typedef struct	s_data
+{
+	t_map		*map;
+	t_player	*player;
+}				t_data;
+
 //main.c
-int		file_name_control(char *file_name);
-int		map_control(t_map *map, t_player *player);
-void    map_init(t_map *map, char *file_name);
+int     file_name_control(char *file_name);
+void    map_control(t_map *map, t_player *player);
+void    map_init(t_map *map, t_player *player, char *file_name);
 
 
-//player_controll
-void	dikdortgen_kontrol(t_map *map);
-void	karakter_kontrol(t_map *map, t_player *player);
-void	karakter_kontrol_islem(t_map *map, t_player *player, int x, int y);
+//player_control
+void	Character_Process_Control(t_map *map, t_player *player, int x, int y);
+void	Character_Control(t_map *map, t_player *player);
+void	Rectangle_Control(t_map *map);
 
 
 
-//all_errors
-void	error_dikdortgen(t_map *map);
+//errors_controller
+void	error_rectangle(t_map *map);
 void	error_map(t_map *map, char *message);
 void	error_wall_and_character(t_map *map, int err_y, int err_x);
-void	error_vail(t_map *map, char *message);
+void	error_valid(t_map *map, char *message);
 
 
 //wall_controll
@@ -74,35 +83,37 @@ void	wall_control(t_map *map, int y, int x);
 void	character_control(t_map *map, int y, int x);
 
 //map_read
-int map_read_control(t_map *map, char *file_name);
-void map_read_y(t_map *map, char *file_name);
+void    map_read_y(t_map *map, char *file_name);
+int		map_read_control(t_map *map, char *file_name);
 
 
 
-//check_vaild_path
-void	check_vaild_path(t_map *map, t_player *player);
-void	vaild_recursive(t_map *map, int y, int x);
+//check_valid_path
+void	check_valid_path(t_map *map, t_player *player);
+void	valid_recursive(t_map *map, int y, int x);
 void	valid_control(t_map *map, int y, int x);
-void	vail_coin_control(t_map *map);
-void	vail_exit_control(t_map *map);
-void	vail_exit_control(t_map *map)
-// free_map
+void	valid_coin_control(t_map *map);
+void	valid_exit_control(t_map *map);
+
+// free
 void	free_map(t_map *map);
 
-//error_mlx
-void	error_mlx(t_map *map, char *message);
+//error_init
+void	error_mlx(t_map *map);
+void	error_view_window(t_map *map);
 
 //map_init
+void	put_Image(t_map *map, void *img, int x, int y);
+void	put_value(t_map *map, t_player *player, int x, int y);
+void	render_map(t_map *map, t_player *player, int x, int y);
 void	create_xpm(t_map *map);
-void	render_map(t_map *map, t_player *player);
-void	init_mlx(t_map *map);
 void	view_window(t_map *map);
+void	init_mlx(t_map *map);
 
-
-//void	error_mlx(t_map *map, char *message);
 
 //player_movement
-int		key_hook(int keycode, t_map *map);
-
+void	move_player(t_map *map, t_player *player, int new_y, int new_x);
+void	close_game(t_map *map);
+void	key_hook(int keycode, t_data *data);
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_valid_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akosaca <akosaca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:10:34 by root              #+#    #+#             */
-/*   Updated: 2025/03/15 07:55:11 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/16 08:51:21 by akosaca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	vail_exit_control(t_map *map)
+void	valid_exit_control(t_map *map)
 {
 	int y;
 	int x;
@@ -29,7 +29,7 @@ void	vail_exit_control(t_map *map)
 				map->map_line[y][x-1] != 'P' || \
 				map->map_line[y+1][x] != 'P' || \
 				map->map_line[y-1][x] != 'P')
-				error_vail(map, "Çıkış Kapısı");
+				error_valid(map, "Çıkış Kapısı");
 			else
 				return ;
 		}
@@ -37,7 +37,7 @@ void	vail_exit_control(t_map *map)
 	}
 }
 
-void	vail_coin_control(t_map *map)
+void	valid_coin_control(t_map *map)
 {
 	int y;
 	int x;
@@ -51,7 +51,7 @@ void	vail_coin_control(t_map *map)
 		while (x <= x_count && map->map_line[y][x] != 'C')
 			x++;
 		if (map->map_line[y][x] == 'C')
-			error_vail(map, "Toplanabilir Eşya");
+			error_valid(map, "Toplanabilir Eşya");
 		y++;
 	}
 }
@@ -65,22 +65,22 @@ void	valid_control(t_map *map, int y, int x)
 	}
 }
 
-void	vaild_recursive(t_map *map, int y, int x)
+void	valid_recursive(t_map *map, int y, int x)
 {
-	vaild_recursive(map, y, x+1);
-	vaild_recursive(map, y, x-1);
-	vaild_recursive(map, y+1, x);
-	vaild_recursive(map, y-1, x);
+	valid_recursive(map, y, x+1);
+	valid_recursive(map, y, x-1);
+	valid_recursive(map, y+1, x);
+	valid_recursive(map, y-1, x);
 }
 
-void	check_vaild_path(t_map *map, t_player *player)
+void	check_valid_path(t_map *map, t_player *player)
 {
 	int	y;
 	int	x;
 
-	y = player->y_location;
-	x = player->x_location;
-	vaild_recursive(map, y, x);
-	vail_coin_control(map);
-	vail_exit_control(map);
+	y = player->p_y_location;
+	x = player->p_x_location;
+	valid_recursive(map, y, x);
+	valid_coin_control(map);
+	valid_exit_control(map);
 }

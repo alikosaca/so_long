@@ -30,46 +30,52 @@ int     file_name_control(char *file_name)
     return (1);
 }
 
-void    map_control(t_map	*map, t_player *player)
+void    map_control(t_map *map, t_player *player)
 {
-	dikdortgen_kontrol(map);
-	karakter_kontrol(map, player);
+	Rectangle_Control(map);
+	Character_Control(map, player);
     check_walls_and_character(map);
-    check_vaild_path(map, player);
+    check_valid_path(map, player);
 	free_map(map);
 }
 
 void    map_init(t_map *map, t_player *player, char *file_name)
 {
+    t_data *data;
     int x_px;
     int y_px;
 
-    map_read_control(map, file_name);
+    data->map = &map;
+    data->player = &player;
     map->p_move_count = 0;
+    map->coin_count = 0;
+    player->coin_collected = 0;
+    map_read_control(map, file_name);
     init_mlx(map);
     create_xpm(map);
     view_window(map);
-    render_map(map, player);
-    mlx_key_hook(map->mlx_win, key_hook, map);
+    render_map(map, player, 0 ,0);
+    mlx_key_hook(map->mlx_win, key_hook, data);
 }
 
 int main(int ac, char *av[])
 {
     t_map map;
     t_player player;
+
     if (ac != 2)
     {
-        ft_printf("Ups! Argüman sayısı hatalı:/");
+        ft_printf("Ups! Incorrect number of arguments:/\n");
         return (1);
     }
     if (file_name_control(av[1]))
     {
-        ft_printf("Ups! Dosya Uzantısı Hatalı:/");
+        ft_printf("Ups! File Extension Incorrect:/\n");
         return (1);
     }
     if (map_read_control(&map, av[1]))
     {
-        ft_printf("Ups! Dosya okuma hatası:/");
+        ft_printf("Ups! File reading error:/\n");
         return (1);
     }
     map_control(&map, &player);

@@ -12,29 +12,29 @@
 
 #include "so_long.h"
 
-void	error_dikdortgen(t_map *map)
+void	error_rectangle(t_map *map)
 {
-	ft_printf("Ups! dikdortgen degil:/ \n");
+	ft_printf("Ups! not a rectangle:/ \n");
 	free_map(map);
 	exit(EXIT_FAILURE);
 }
 void	error_map(t_map *map, char *message)
 {
-	ft_printf("Ups! %s sayısı 1 değildir:/ \n", message);
+	ft_printf("Ups! %s The number is not 1:/ \n", message);
 	free_map(map);
 	exit(EXIT_FAILURE);
 }
 
 void	error_wall_and_character(t_map *map, int err_y, int err_x)
 {
-	ft_printf("Ups! %d. sutun, %d. satırda duvar/karakter hatası var:/ \n", err_y, err_x);
+	ft_printf("Ups! %d. column, %d. row There is a map error:/ \n", err_y, err_x);
 	free_map(map);
 	exit(EXIT_FAILURE);
 }
 
-void	error_vail(t_map *map, char *message)
+void	error_valid(t_map *map, char *message)
 {
-	ft_printf("Ups! %d -> Ulaşılmıyor:/ \n");
+	ft_printf("Ups! %d -> Unreachable:/ \n");
 	free_map(map);
 	exit(EXIT_FAILURE);
 }
