@@ -5,18 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akosaca <akosaca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 16:39:20 by root              #+#    #+#             */
-/*   Updated: 2025/03/16 09:00:49 by akosaca          ###   ########.fr       */
+/*   Created: 2025/03/17 06:56:44 by akosaca           #+#    #+#             */
+/*   Updated: 2025/03/17 16:34:29 by akosaca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "so_long.h"
 
 void	init_mlx(t_map *map)
 {
-	map->mlx = mlx_init(map->mlx);
+	map->mlx = mlx_init();
 	if (!map->mlx)
-		error_mlx(map, "MiniLibX failed to initialize");
+		error_and_free(map->map_line, "COULD NOT BE CREATED");
 }
 
 void	view_window(t_map *map)
@@ -28,7 +29,7 @@ void	view_window(t_map *map)
     y_px = map->map_y_line * 64;
 	map->mlx_win = mlx_new_window(map->mlx, x_px, y_px, "SO_LONG");
     if (!map->mlx || !map->mlx_win)
-        error_mlx(map, "window error");
+		error_view_window(map);
 }
 
 void	create_xpm(t_map *map)
@@ -42,12 +43,12 @@ void	create_xpm(t_map *map)
 	map->img_wall = mlx_xpm_file_to_image(map->mlx, "./img/wall.xpm", &x, &y);
 	if (!map->img_coin || !map->img_exit || !map->img_player || !map->img_space \
 		|| !map->img_wall)
-		error_mlx(map, "xpm read error:/");
+		error_and_free(map->map_line, "ERROR XPM");
 }
 
 void	render_map(t_map *map, t_player *player, int x, int y)
 {
-	while (map->map_line[y])
+	while (y < map->map_y_line)
 	{
 		x = 0;
 		while (map->map_line[y][x] && map->map_line[y][x] != '\n')

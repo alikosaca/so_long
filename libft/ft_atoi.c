@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akosaca <akosaca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 15:30:01 by akosaca           #+#    #+#             */
-/*   Updated: 2024/11/05 19:03:47 by akosaca          ###   ########.fr       */
+/*   Created: 2024/10/17 20:05:33 by akosaca           #+#    #+#             */
+/*   Updated: 2024/11/05 18:39:22 by akosaca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_strlen(const char *s)
+int	ft_atoi(const char *str)
 {
-	size_t	i;
+	int	new_str;
+	int	sign;
+	int	i;
 
+	new_str = 0;
+	sign = 1;
 	i = 0;
-	while (s[i])
+	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v' || str[i] == '\f'
+		|| str[i] == '\r' || str[i] == ' ')
 		i++;
-	return (i);
+	if (str[i] == '-')
+	{
+		sign *= -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		new_str = ((new_str * 10) + str[i] - 48);
+		i++;
+	}
+	return (sign * new_str);
 }

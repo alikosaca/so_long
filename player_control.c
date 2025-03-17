@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akosaca <akosaca@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/16 09:05:54 by akosaca           #+#    #+#             */
-/*   Updated: 2025/03/16 09:08:20 by akosaca          ###   ########.fr       */
+/*   Created: 2025/03/17 06:56:54 by akosaca           #+#    #+#             */
+/*   Updated: 2025/03/17 17:10:14 by akosaca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 
-void	Rectangle_Control(t_map *map)
+void	rectangle_control(t_map *map)
 {
 	int	y_position;
 	int	x_len;
@@ -31,45 +31,51 @@ void	Rectangle_Control(t_map *map)
 			x_len++;
 		}
 		if (x_len != x_first -1)
-		{
-			error_rectangle(map);
-		}
+			error_and_free(map->map_line, "the wall is faulty");
 		y_position++;
 	}
 }
 
-void	Character_Control(t_map *map, t_player *player)
+void	character_control(t_map *map, t_player *player)
 {
-	Character_Process_Control(map, player, 0, 0);
+	character_process_control(map, player, 0, 0);
 	if (map->exit_count != 1)
-		error_map(map, "EXIT");
-	if (map->coin_count != 1)
-		error_map(map, "COLLECTABLE");
+		error_and_free(map->map_line, "EXIT COUNT WRONG");
 	if (map->player_count != 1)
-		error_map(map, "PLAYER");
+		error_and_free(map->map_line, "PLAYER EXIT COUNT WRONG");
+	if (map->coin_count < 1)
+		error_and_free(map->map_line, "COLLECTABLE EXIT COUNT WRONG");
 }
 
-void	Character_Process_Control(t_map *map, t_player *player, int x, int y)
+void	character_process_control(t_map *map, t_player *player, int x, int y)
 {
-	map->player_count = 0;
-	map->coin_count = 0;
-	map->exit_count = 0;
-	y = 0;
 	while (map->map_line[y])
 	{
 		x = 0;
-		while (map->map_line[y][x])
+		while (map->map_line[y][x] != '\n' && map->map_line[y][x] != '\0')
 		{
-			if (map->map_line[y][x] == 'E')
-				map->exit_count++;
-			else if (map->map_line[y][x] == 'C')
-				map->coin_count++;
-			if (map->map_line[y][x] == 'P')
+			if (map->map_line[y][x] == DOOR)
 			{
+				ft_printf("map[%d][%d]: E\n", y, x);
+				player->e_y_location = y;
+				player->e_x_location = x;
+				map->exit_count++;
+			}
+			else if (map->map_line[y][x] == COIN)
+			{
+				map->coin_count++;
+				ft_printf("para buldum, %d\n", map->coin_count);
+			}
+			else if (map->map_line[y][x] == PLAYER)
+			{
+				ft_printf("map[%d][%d]: P\n", y, x);
 				player->p_y_location = y;
 				player->p_x_location = x;
 				map->player_count++;
 			}
+			else if (map->map_line[y][x] == WALL)
+				map->wall_count++;
+			x++;
 		}
 		y++;
 	}	

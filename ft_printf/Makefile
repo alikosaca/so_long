@@ -1,30 +1,25 @@
-SRC = ft_printf.c ft_printf_utils.c
-
-OBJS = $(SRC:.c=.o)
-
-GCC = gcc -Wall -Werror -Wextra
-
-RM = rm -f
-
 NAME = libftprintf.a
+SOURCES = ft_printf.c \
+		ft_putchar.c \
+		ft_putnbr.c \
+		ft_putstr.c \
+		ft_putnbr_unsigned.c \
+		ft_printf_hex.c \
+		ft_printf_ptr.c
+
+OBJS = $(SOURCES:.c=.o)
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-
-%.o: %.c
-	@$(GCC) -I ./c -c $< -o $@
+	ar -rc $(NAME) $(OBJS)
 
 clean:
-	@$(RM) $(OBJS)
+	$(RM) $(OBJS)
 
-fclean:
-	@$(RM) $(NAME) $(OBJS)
+fclean: clean
+	$(RM) $(NAME)
 
-re:
-	@$(MAKE) -s fclean > /dev/null
-	@$(MAKE) -s all > /dev/null
-
-
-.PHONY: all clean fclean re
+re: fclean all

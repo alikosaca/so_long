@@ -1,71 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akosaca <akosaca@student.42.fr>            #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024-11-19 10:43:41 by akosaca           #+#    #+#             */
+/*   Updated: 2024-11-19 10:43:41 by akosaca          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
+
+static int	conversion(const char specifier, va_list args)
+{
+	int	count;
+
+	count = 0;
+	if (specifier == 'c')
+		count += ft_putchar(va_arg(args, int));
+	else if (specifier == 's')
+		count += ft_putstr(va_arg(args, char *));
+	else if (specifier == 'd' || specifier == 'i')
+		count += ft_putnbr(va_arg(args, int));
+	else if (specifier == 'u')
+		count += ft_putnbr_unsigned(va_arg(args, unsigned int));
+	else if (specifier == '%')
+		count += ft_putchar('%');
+	else if (specifier == 'x')
+		count += ft_printf_hex(va_arg(args, int), 1);
+	else if (specifier == 'X')
+		count += ft_printf_hex(va_arg(args, int), 0);
+	else if (specifier == 'p')
+		count += ft_printf_ptr(va_arg(args, long));
+	return (count);
+}
 
 int	ft_printf(const char *format, ...)
 {
-	int		count_print;
-	int		i;
 	va_list	args;
+	int		count;
 
-	i = -1;
-	count_print = 0;
-	va_start(args, format);
-	while (format[++i])
-		count_print += brain(&i, format[i], format[i + 1], args);
-	return (count_print);
-}
-
-int	brain(int *i, char now, char next, va_list args)
-{
-	int	count_print;
-
-	if (now == '%' && next)
+	va_start (args, format);
+	count = 0;
+	while (*format)
 	{
-		count_print = check_args(next, args);
-		(*i)++;
+		if (*format == '%')
+		{
+			format++;
+			count += conversion(*format, args);
+		}
+		else
+			count += write(1, format, 1);
+		format++;
 	}
-	else
-		return (write(1, &now, 1), 1);
-	return (count_print);
-}
-
-int	check_args(char next, va_list args)
-{
-	int	j;
-	int	count_print;
-
-	j = -1;
-	while (FORMAT[++j])
-	{
-		if (next == FORMAT[j])
-			count_print = thumb(FORMAT[j], args);
-	}
-	return (count_print);
-}
-
-int	thumb(char thumbnail, va_list args)
-{
-	if (thumbnail == 'c')
-		return (ft_putchar(va_arg(args, int)));
-	if (thumbnail == 's')
-		return (ft_putstr(va_arg(args, char *)));
-	if (thumbnail == '%')
-		return (ft_putchar('%'));
-	if (thumbnail == 'd')
-		return (ft_putnbr(va_arg(args, int)));
-	if (thumbnail == 'i')
-		return (ft_putnbr(va_arg(args, int)));
-	if (thumbnail == 'X')
-		return (ft_puthexa(va_arg(args, unsigned int), "0123456789ABCDEF"));
-	if (thumbnail == 'x')
-		return (ft_puthexa(va_arg(args, unsigned int), "0123456789abcdef"));
-	if (thumbnail == 'p')
-		return (ft_adress(va_arg(args, void *)));
-	if (thumbnail == 'u')
-		return (ft_putunbr(va_arg(args, unsigned int)));
-	return (-1);
-}
-
-int	ft_putchar(int c)
-{
-	return (write(1, &c, 1), 1);
+	va_end(args);
+	return (count);
 }

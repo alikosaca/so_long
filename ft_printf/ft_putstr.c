@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akosaca <akosaca@student.42.fr>            +#+  +:+       +#+        */
+/*   By: akosaca <akosaca@student.42.fr>            #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 15:30:01 by akosaca           #+#    #+#             */
-/*   Updated: 2024/11/05 19:03:47 by akosaca          ###   ########.fr       */
+/*   Created: 2024-11-19 12:54:27 by akosaca           #+#    #+#             */
+/*   Updated: 2024-11-19 12:54:27 by akosaca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_putstr(char *s)
 {
-	size_t	i;
+	int	count;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	count = 0;
+	if (s)
+		while (*s)
+			count += ft_putchar(*s++);
+	else
+		return (write(1, "(null)", 6));
+	return (count);
 }

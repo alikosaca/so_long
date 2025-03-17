@@ -1,8 +1,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include "../get_next_line/get_next_line.h"
-#include "../ft_printf/ft_printf.h"
+#include "libft/libft.h"
+#include "ft_printf/ft_printf.h"
 #include "minilibx-linux/mlx.h"
 #include <unistd.h>
 #include <fcntl.h>
@@ -22,12 +22,22 @@
 
 # define MAP_CHAR "01CEP"
 
+# define WALL '1'
+# define SPACE '0'
+# define PLAYER 'P'
+# define COIN 'C'
+# define DOOR 'E'
+
+# define ERR_FILE_NAME "Ups! File Extension Incorrect:/"
+# define ERR_AC "Ups! Incorrect number of arguments:/"
+# define map_read_err "Ups! Ups! File reading error:/"
+
+
 typedef struct s_map
 {
 	char	**map_line;
-    int		exit_x;
-    int		exit_y;
 	int		player_count;
+	int		wall_count;
 	int		exit_count;
 	int		coin_count;
 	int		p_move_count;
@@ -58,33 +68,32 @@ typedef struct	s_data
 }				t_data;
 
 //main.c
-int     file_name_control(char *file_name);
+void	file_name_and_ac_control(char *file_name, int ac);
 void    map_control(t_map *map, t_player *player);
 void    map_init(t_map *map, t_player *player, char *file_name);
 
 
 //player_control
-void	Character_Process_Control(t_map *map, t_player *player, int x, int y);
-void	Character_Control(t_map *map, t_player *player);
-void	Rectangle_Control(t_map *map);
+void	character_process_control(t_map *map, t_player *player, int x, int y);
+void	character_control(t_map *map, t_player *player);
+void	rectangle_control(t_map *map);
 
 
 
 //errors_controller
-void	error_rectangle(t_map *map);
-void	error_map(t_map *map, char *message);
-void	error_wall_and_character(t_map *map, int err_y, int err_x);
-void	error_valid(t_map *map, char *message);
+void	error_view_window(t_map *map);
+void	error_and_free(char **map, char *message);
+void	error(char *message);
 
 
 //wall_controll
 void	check_walls_and_character(t_map *map);
 void	wall_control(t_map *map, int y, int x);
-void	character_control(t_map *map, int y, int x);
+void	character_wall_control(t_map *map, int y, int x);
 
 //map_read
 void    map_read_y(t_map *map, char *file_name);
-int		map_read_control(t_map *map, char *file_name);
+void	map_read_control(t_map *map, char *file_name);
 
 
 
@@ -96,11 +105,7 @@ void	valid_coin_control(t_map *map);
 void	valid_exit_control(t_map *map);
 
 // free
-void	free_map(t_map *map);
-
-//error_init
-void	error_mlx(t_map *map);
-void	error_view_window(t_map *map);
+void	free_map(char **map);
 
 //map_init
 void	put_Image(t_map *map, void *img, int x, int y);
@@ -114,6 +119,6 @@ void	init_mlx(t_map *map);
 //player_movement
 void	move_player(t_map *map, t_player *player, int new_y, int new_x);
 void	close_game(t_map *map);
-void	key_hook(int keycode, t_data *data);
+int		key_hook(int keycode, t_data *data);
 
 #endif
