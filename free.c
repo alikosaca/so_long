@@ -17,6 +17,9 @@ void	free_map(char **map)
 {
 	int	i;
 
+	if (!map)
+		return;
+		
 	i = -1;
 	while (map[++i])
 		free(map[i]);

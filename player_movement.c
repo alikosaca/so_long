@@ -29,6 +29,7 @@ void	move_player(t_map *map, t_player *player, int new_y, int new_x)
             ft_printf("collected:%d, coin:%d",player->coin_collected, map->coin_count);
             return ;
         }
+        ft_printf("Victory!\nCongratulations! Moves: %d\n", map->p_move_count);
         close_game(map);
     }
     if (player->coin_collected == map->coin_count)
@@ -53,9 +54,8 @@ void    new_location(t_map *map, t_player *player, int new_y, int new_x)
 	player->p_y_loc = new_y;
 }
 
-void	close_game(t_map *map)
+int close_game(t_map *map)
 {
-    ft_printf("Victory! \n Congratulations! Moves: %d\n", map->p_move_count);
     if (map->img_player)
         mlx_destroy_image(map->mlx, map->img_player);
     if (map->img_coin)
@@ -70,9 +70,15 @@ void	close_game(t_map *map)
         mlx_destroy_image(map->mlx, map->img_wall);
     if (map->mlx_win)
         mlx_destroy_window(map->mlx, map->mlx_win);
-    free_map(map->map_line);
-    mlx_destroy_display(map->mlx);
+    if (map->map_line)
+        free_map(map->map_line);
+    if (map->mlx)
+    {
+        mlx_destroy_display(map->mlx);
+        free(map->mlx);
+    }
     exit(EXIT_SUCCESS);
+    return (0);
 }
 
 

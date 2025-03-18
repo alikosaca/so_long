@@ -19,23 +19,25 @@ void	rectangle_control(t_map *map)
 	int x_first;
 	int	x_len;
 
+	if (!map || !map->map_line || !map->map_line[0])
+		return;
+		
 	y_position = 0;
 	x_first = (int)ft_strlen(map->map_line[y_position]);
-	ft_printf("----player_control_1%d--------\n", x_first);
 	while (y_position < (map->map_y_line))
 	{
+		if (!map->map_line[y_position])
+			break;
 		x_len = 0;
 		while (map->map_line[y_position] && \
+				map->map_line[y_position][x_len] && \
 				map->map_line[y_position][x_len+1] != '\n' && \
-				x_len < ((int)(ft_strlen(map->map_line[y_position]))))
+				map->map_line[y_position][x_len] != '\0')
 		{
 			x_len++;
 		}
 		if (x_len != x_first -2)
-		{
-			ft_printf("x:%d y:%d  yx:%c x_first:%d \n", x_len, y_position, map->map_line[y_position][x_len], x_first);
 			error_and_free(map->map_line, "the wall is faulty");
-		}
 		y_position++;
 	}
 }
@@ -53,14 +55,16 @@ void	character_control(t_map *map, t_player *player)
 
 void	character_process_control(t_map *map, t_player *player, int x, int y)
 {
+	if (!map || !map->map_line || !player)
+		return;
+		
 	while (map->map_line[y])
 	{
 		x = 0;
-		while (map->map_line[y][x] != '\n' && map->map_line[y][x] != '\0')
+		while (map->map_line[y][x] && map->map_line[y][x] != '\n' && map->map_line[y][x] != '\0')
 		{
 			if (map->map_line[y][x] == DOOR)
 			{
-				ft_printf("map[%d][%d]: E\n", y, x);
 				player->e_y_loc = y;
 				player->e_x_loc = x;
 				map->exit_count++;
@@ -68,11 +72,9 @@ void	character_process_control(t_map *map, t_player *player, int x, int y)
 			else if (map->map_line[y][x] == COIN)
 			{
 				map->coin_count++;
-				ft_printf("para buldum, %d\n", map->coin_count);
 			}
 			else if (map->map_line[y][x] == PLAYER)
 			{
-				ft_printf("map[%d][%d]: P\n", y, x);
 				player->p_y_loc = y;
 				player->p_x_loc = x;
 				map->player_count++;

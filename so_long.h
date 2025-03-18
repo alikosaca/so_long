@@ -69,7 +69,7 @@ typedef struct	s_data
 }				t_data;
 
 //main.c
-void	file_name_and_ac_control(char *file_name);
+void	file_name_and_ac_control(char *file_name, int ac);
 void    map_control(t_map *map, t_player *player);
 void    map_init(t_map *map, t_player *player, char *file_name);
 
@@ -119,7 +119,7 @@ void	init_mlx(t_map *map);
 
 //player_movement
 void	move_player(t_map *map, t_player *player, int new_y, int new_x);
-void	close_game(t_map *map);
+int		close_game(t_map *map);
 int		key_hook(int keycode, t_data *data);
 void    new_location(t_map *map, t_player *player, int new_y, int new_x);
 

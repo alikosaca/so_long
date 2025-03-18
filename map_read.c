@@ -49,7 +49,7 @@ void	map_read_y(t_map *map, char *file_name)
 	}
 	len_y++;
 	close(fd);
-	map->map_line = malloc(sizeof(char *) * len_y + 1);
+	map->map_line = malloc(sizeof(char *) * (len_y + 1));
 	if (!map->map_line)
 		error("Could not allocate a place");
 	map->map_line[len_y] = NULL;

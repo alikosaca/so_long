@@ -40,8 +40,11 @@ void	error_view_window(t_map *map)
 		mlx_destroy_image(map->mlx, map->img_space);
 	if (map->img_wall)
 		mlx_destroy_image(map->mlx, map->img_wall);
-	if (map->mlx)
-		mlx_destroy_display(map->mlx);
 	free_map(map->map_line);
+	if (map->mlx)
+	{
+		mlx_destroy_display(map->mlx);
+		free(map->mlx);
+	}
 	exit(EXIT_FAILURE);
 }

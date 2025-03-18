@@ -22,7 +22,6 @@ void	wall_control(t_map *map, int y, int x)
 	while (map->map_line[y])
 	{
 		x_count = ((int)ft_strlen(map->map_line[y]));
-		ft_printf("----player_control_1%d--------\n", x_count);
 		if (y == 0 || y == map->map_y_line - 1)
 		{
 			x = 0;
@@ -54,15 +53,9 @@ void	character_wall_control(t_map *map, int y, int x)
 		{
 
 			if (ft_strchr(MAP_CHAR, map->map_line[y][x]) != NULL)
-			{
 				x++;
-			}
 			else
-			{
-				ft_printf("x:%d, y:%d, map_line:%c \n", x, y, map->map_line[y][x]);
-
 				error_and_free(map->map_line, "MAP CHAR ERROR");
-			}
 		}
 		y++;
 	}

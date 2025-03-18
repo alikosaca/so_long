@@ -26,7 +26,6 @@ void	view_window(t_map *map)
     int y_px;
 
 	x_px = ((int)ft_strlen(map->map_line[0]) - 2) * 64;
-	ft_printf("----map_init view_windows%d--------\n", x_px);
     y_px = map->map_y_line * 64;
 	map->mlx_win = mlx_new_window(map->mlx, x_px, y_px, "SO_LONG");
     if (!map->mlx || !map->mlx_win)
