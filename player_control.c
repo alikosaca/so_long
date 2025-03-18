@@ -16,22 +16,26 @@
 void	rectangle_control(t_map *map)
 {
 	int	y_position;
-	int	x_len;
 	int x_first;
+	int	x_len;
 
 	y_position = 0;
 	x_first = (int)ft_strlen(map->map_line[y_position]);
+	ft_printf("----player_control_1%d--------\n", x_first);
 	while (y_position < (map->map_y_line))
 	{
 		x_len = 0;
 		while (map->map_line[y_position] && \
-				map->map_line[y_position][x_len] != '\n' && \
-				x_len < (int)(ft_strlen(map->map_line[y_position])))
+				map->map_line[y_position][x_len+1] != '\n' && \
+				x_len < ((int)(ft_strlen(map->map_line[y_position]))))
 		{
 			x_len++;
 		}
-		if (x_len != x_first -1)
+		if (x_len != x_first -2)
+		{
+			ft_printf("x:%d y:%d  yx:%c x_first:%d \n", x_len, y_position, map->map_line[y_position][x_len], x_first);
 			error_and_free(map->map_line, "the wall is faulty");
+		}
 		y_position++;
 	}
 }
@@ -57,8 +61,8 @@ void	character_process_control(t_map *map, t_player *player, int x, int y)
 			if (map->map_line[y][x] == DOOR)
 			{
 				ft_printf("map[%d][%d]: E\n", y, x);
-				player->e_y_location = y;
-				player->e_x_location = x;
+				player->e_y_loc = y;
+				player->e_x_loc = x;
 				map->exit_count++;
 			}
 			else if (map->map_line[y][x] == COIN)
@@ -69,8 +73,8 @@ void	character_process_control(t_map *map, t_player *player, int x, int y)
 			else if (map->map_line[y][x] == PLAYER)
 			{
 				ft_printf("map[%d][%d]: P\n", y, x);
-				player->p_y_location = y;
-				player->p_x_location = x;
+				player->p_y_loc = y;
+				player->p_x_loc = x;
 				map->player_count++;
 			}
 			else if (map->map_line[y][x] == WALL)

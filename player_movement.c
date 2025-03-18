@@ -21,34 +21,49 @@ void	move_player(t_map *map, t_player *player, int new_y, int new_x)
 	{
 		player->coin_collected++;
 		map->map_line[new_y][new_x] = SPACE;
-		//put_Image(map, map->img_space, new_x, new_y);
 	}
-
-	map->map_line[player->p_y_location][player->p_x_location] = SPACE;
-	map->map_line[new_y][new_x] = PLAYER;
-	put_Image(map, map->img_space, player->p_x_location, player->p_y_location);
-	player->p_x_location = new_x;
-	player->p_y_location = new_y;
-	map->p_move_count++;
+    if (map->map_line[new_y][new_x] == DOOR)
+    {
+        if (player->coin_collected != map->coin_count)
+        {
+            ft_printf("collected:%d, coin:%d",player->coin_collected, map->coin_count);
+            return ;
+        }
+        close_game(map);
+    }
+    if (player->coin_collected == map->coin_count)
+    {
+        put_Image(map, map->img_exit2, player->e_x_loc, player->e_y_loc);
+    }
+    map->p_move_count++;
 	ft_printf("Moves: %d\n", map->p_move_count);
-	if (new_x == player->e_x_location && new_y == player->e_y_location && \
-		player->coin_collected == map->coin_count)
-	{
-		ft_printf("Victory! \n Congratulations! Moves: %d\n", map->p_move_count);
-		close_game(map); 
-	}
-	
+    new_location(map, player, new_y, new_x);
+
+}
+
+void    new_location(t_map *map, t_player *player, int new_y, int new_x)
+{
+    map->map_line[player->p_y_loc][player->p_x_loc] = SPACE;
+    put_Image(map, map->img_space, player->p_x_loc, player->p_y_loc);
+
+    map->map_line[new_y][new_x] = PLAYER;
 	put_Image(map, map->img_player, new_x, new_y);
+
+	player->p_x_loc = new_x;
+	player->p_y_loc = new_y;
 }
 
 void	close_game(t_map *map)
 {
+    ft_printf("Victory! \n Congratulations! Moves: %d\n", map->p_move_count);
     if (map->img_player)
         mlx_destroy_image(map->mlx, map->img_player);
     if (map->img_coin)
         mlx_destroy_image(map->mlx, map->img_coin);
-    if (map->img_exit)
-        mlx_destroy_image(map->mlx, map->img_exit);
+    if (map->img_exit1)
+        mlx_destroy_image(map->mlx, map->img_exit1);
+    if (map->img_exit2)
+        mlx_destroy_image(map->mlx, map->img_exit2);
     if (map->img_space)
         mlx_destroy_image(map->mlx, map->img_space);
     if (map->img_wall)
@@ -57,7 +72,6 @@ void	close_game(t_map *map)
         mlx_destroy_window(map->mlx, map->mlx_win);
     free_map(map->map_line);
     mlx_destroy_display(map->mlx);
-    free(map->mlx);
     exit(EXIT_SUCCESS);
 }
 
@@ -70,12 +84,12 @@ int	key_hook(int keycode, t_data *data)
     if (keycode == ESC)
         close_game(map);
     else if (keycode == W || keycode == UP)
-        move_player(map, player, player->p_y_location - 1, player->p_x_location);
+        move_player(map, player, player->p_y_loc - 1, player->p_x_loc);
     else if (keycode == A || keycode == LEFT)
-        move_player(map, player, player->p_y_location, player->p_x_location - 1);
+        move_player(map, player, player->p_y_loc, player->p_x_loc - 1);
     else if (keycode == S || keycode == BACK)
-        move_player(map, player, player->p_y_location + 1, player->p_x_location);
+        move_player(map, player, player->p_y_loc + 1, player->p_x_loc);
     else if (keycode == D || keycode == RIGHT)
-        move_player(map, player, player->p_y_location, player->p_x_location + 1);
+        move_player(map, player, player->p_y_loc, player->p_x_loc + 1);
     return (0);
 }

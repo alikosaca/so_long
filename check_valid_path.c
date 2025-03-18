@@ -45,7 +45,8 @@ void	valid_coin_control(t_map *map)
 	int x_count;
 
 	y = 0;
-	x_count = (int)ft_strlen(map->map_line[y]);
+	x_count = (int)ft_strlen(map->map_line[y])-2;
+	ft_printf("%dcheck_valid--------\n", x_count);
 	while (map->map_line[y])
 	{
 		x = 0;
@@ -86,7 +87,7 @@ void	valid_recursive(t_map *map, int y, int x)
 
 void	check_valid_path(t_map *map, t_player *player)
 {
-	valid_recursive(map, player->p_y_location, player->p_x_location);
+	valid_recursive(map, player->p_y_loc, player->p_x_loc);
 	valid_coin_control(map);
 	valid_exit_control(map);
 }

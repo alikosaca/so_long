@@ -47,17 +47,18 @@ typedef struct s_map
 	void	*mlx_win;
 	void	*img_player;
 	void	*img_wall;
-	void	*img_exit;
+	void	*img_exit1;
+	void	*img_exit2;
 	void	*img_space;
 	void	*img_coin; 
 }               t_map;
 
 typedef struct s_player
 {
-    int		p_x_location;
-	int		p_y_location;
-	int		e_x_location;
-	int		e_y_location;
+    int		p_x_loc;
+	int		p_y_loc;
+	int		e_x_loc;
+	int		e_y_loc;
 	int		coin_collected;
 }               t_player;
 
@@ -68,7 +69,7 @@ typedef struct	s_data
 }				t_data;
 
 //main.c
-void	file_name_and_ac_control(char *file_name, int ac);
+void	file_name_and_ac_control(char *file_name);
 void    map_control(t_map *map, t_player *player);
 void    map_init(t_map *map, t_player *player, char *file_name);
 
@@ -120,5 +121,6 @@ void	init_mlx(t_map *map);
 void	move_player(t_map *map, t_player *player, int new_y, int new_x);
 void	close_game(t_map *map);
 int		key_hook(int keycode, t_data *data);
+void    new_location(t_map *map, t_player *player, int new_y, int new_x);
 
 #endif

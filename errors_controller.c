@@ -32,8 +32,10 @@ void	error_view_window(t_map *map)
 		mlx_destroy_image(map->mlx, map->img_player);
 	if (map->img_coin)
 		mlx_destroy_image(map->mlx, map->img_coin);
-	if (map->img_exit)
-		mlx_destroy_image(map->mlx, map->img_exit);
+	if (map->img_exit1)
+		mlx_destroy_image(map->mlx, map->img_exit1);
+	if (map->img_exit2)
+		mlx_destroy_image(map->mlx, map->img_exit2);
 	if (map->img_space)
 		mlx_destroy_image(map->mlx, map->img_space);
 	if (map->img_wall)

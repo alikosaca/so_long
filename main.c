@@ -16,14 +16,14 @@
 
 // a..ber
 
-void	file_name_and_ac_control(char *file_name, int ac)
+void	file_name_and_ac_control(char *file_name)
 {
 	int file_name_len;
 
     file_name_len = (int)ft_strlen(file_name);
 
-	if (ac != 2)
-		error("ac number is wrong");
+	//if (ac != 2)
+	//	error("ac number is wrong");
     if (file_name[file_name_len - 4] == '.' && \
         file_name[file_name_len - 3] == 'b' && \
         file_name[file_name_len - 2] == 'e' && \
@@ -69,8 +69,8 @@ int main(int ac, char *av[])
 	t_map *const map = &(t_map){0};
 	t_player *const player = &(t_player){0};
 		
-	ft_printf("file_name...\n");
-	file_name_and_ac_control(av[1], ac);
+	ft_printf("file_name... %d \n", ac);
+	file_name_and_ac_control(av[1]);
 	ft_printf("map_read...\n");
 	map_read_control(map, av[1]);
 	ft_printf("map_control...\n");
