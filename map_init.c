@@ -70,7 +70,9 @@ void	render_map(t_map *map, t_player *player, int x, int y)
 			x++;
 		}
 		y++;
-	}	
+		ft_printf("render7\n");
+
+	}
 }
 
 

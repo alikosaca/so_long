@@ -49,14 +49,18 @@ void    map_control(t_map *map, t_player *player)
 void    map_init(t_map *map, t_player *player, char *file_name)
 {
 	t_data data;
-
 	data.map = map;
 	data.player = player;	
 	map_read_control(map, file_name);
+	ft_printf("map_init1\n");
 	init_mlx(map);
+	ft_printf("map_init2\n");
 	create_xpm(map);
+	ft_printf("map_init3\n");
 	view_window(map);
+	ft_printf("map_init4\n");
 	render_map(map, player, 0 ,0);
+	ft_printf("map_init5\n");
 	mlx_key_hook(map->mlx_win, key_hook, &data);
 	mlx_hook(map->mlx_win, 17, 1L<<17, close_game, map);
 	mlx_loop(map->mlx);
@@ -68,9 +72,15 @@ int main(int ac, char *av[])
 	t_player *const player = &(t_player){0};
 		
 	file_name_and_ac_control(av[1], ac);
+	ft_printf("kontrolll1\n");
 	map_read_control(map, av[1]);
+	ft_printf("kontrolll2\n");
+
 	map_control(map, player);
+	ft_printf("kontrolll3\n");
+
 	map_init(map, player, av[1]);
+	ft_printf("kontrolll4\n");
 
 	return (0);
 }
