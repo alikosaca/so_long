@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "so_long.h"
 
 void	error(char *message)
@@ -18,7 +17,8 @@ void	error(char *message)
 	ft_printf("Ups! %s \n", message);
 	exit(EXIT_FAILURE);
 }
-void	error_and_free(char **map, char *message)
+
+void	error_and_free(char	**map, char	*message)
 {
 	ft_printf("Ups! %s \n", message);
 	free_map(map);

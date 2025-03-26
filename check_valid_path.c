@@ -14,12 +14,9 @@
 
 void	valid_exit_control(t_map *map)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
-	if (!map || !map->map_line)
-		return;
-		
 	y = 0;
 	while (map->map_line[y])
 	{
@@ -28,12 +25,12 @@ void	valid_exit_control(t_map *map)
 			x++;
 		if (map->map_line[y][x] == DOOR)
 		{
-			if (map->map_line[y][x+1] != PLAYER && \
-				map->map_line[y][x-1] != PLAYER && \
-				map->map_line[y+1][x] != PLAYER && \
-				map->map_line[y-1][x] != PLAYER)
+			if (map->map_line[y][x + 1] != PLAYER && \
+				map->map_line[y][x - 1] != PLAYER && \
+				map->map_line[y + 1][x] != PLAYER && \
+				map->map_line[y - 1][x] != PLAYER)
 				error_and_free(map->map_line, "ERROR DOOR");
-			return;
+			return ;
 		}
 		y++;
 	}
@@ -41,18 +38,15 @@ void	valid_exit_control(t_map *map)
 
 void	valid_coin_control(t_map *map)
 {
-	int y;
-	int x;
-	int x_count;
+	int	y;
+	int	x;
+	int	x_count;
 
-	if (!map || !map->map_line)
-		return;
-		
 	y = 0;
 	while (map->map_line[y])
 	{
 		x = 0;
-		x_count = (int)ft_strlen(map->map_line[y])-2;
+		x_count = (int)ft_strlen(map->map_line[y]) - 2;
 		while (x < x_count)
 		{
 			if (map->map_line[y][x] == COIN)
@@ -65,12 +59,13 @@ void	valid_coin_control(t_map *map)
 
 void	valid_control(t_map *map, int y, int x)
 {
-	if (!map || !map->map_line || 
-		y < 0 || x < 0 || !map->map_line[y] || 
-		map->map_line[y][x] == '\0' || 
-		map->map_line[y][x] == WALL || map->map_line[y][x] == PLAYER)
-		return;
-		
+	if (!map || !map->map_line || \
+		y < 0 || x < 0 || \
+		!map->map_line[y] || \
+		map->map_line[y][x] == '\0' || \
+		map->map_line[y][x] == WALL || \
+		map->map_line[y][x] == PLAYER)
+		return ;
 	if (map->map_line[y][x] == SPACE || map->map_line[y][x] == COIN)
 	{
 		map->map_line[y][x] = PLAYER;
@@ -80,20 +75,19 @@ void	valid_control(t_map *map, int y, int x)
 
 void	valid_recursive(t_map *map, int y, int x)
 {
-	if (!map || !map->map_line || y < 0 || x < 0 || !map->map_line[y] || 
+	if (!map || !map->map_line || y < 0 || x < 0 || !map->map_line[y] || \
 		map->map_line[y][x] == '\0' || map->map_line[y][x] == WALL)
-		return;
-	valid_control(map, y, x+1);
-	valid_control(map, y, x-1);
-	valid_control(map, y+1, x);
-	valid_control(map, y-1, x);
+		return ;
+	valid_control(map, y, x + 1);
+	valid_control(map, y, x - 1);
+	valid_control(map, y + 1, x);
+	valid_control(map, y - 1, x);
 }
 
 void	check_valid_path(t_map *map, t_player *player)
 {
 	if (!map || !map->map_line || !player)
-		return;
-		
+		return ;
 	valid_recursive(map, player->p_y_loc, player->p_x_loc);
 	valid_coin_control(map);
 	valid_exit_control(map);

@@ -36,13 +36,13 @@
 typedef struct s_map
 {
 	char	**map_line;
+	char	*f_name;
 	int		player_count;
 	int		wall_count;
 	int		exit_count;
 	int		coin_count;
 	int		p_move_count;
 	int		map_y_line;
-	char	*f_name;
 	void	*mlx;
 	void	*mlx_win;
 	void	*img_player;
@@ -51,7 +51,7 @@ typedef struct s_map
 	void	*img_exit2;
 	void	*img_space;
 	void	*img_coin; 
-}               t_map;
+}				t_map;
 
 typedef struct s_player
 {
@@ -78,6 +78,7 @@ void    map_init(t_map *map, t_player *player, char *file_name);
 void	character_process_control(t_map *map, t_player *player, int x, int y);
 void	character_control(t_map *map, t_player *player);
 void	rectangle_control(t_map *map);
+void	character_boost(t_map *map, t_player *player, int x, int y);
 
 
 
@@ -89,13 +90,13 @@ void	error(char *message);
 
 //wall_controll
 void	check_walls_and_character(t_map *map);
-void	wall_control(t_map *map, int y, int x);
+void	wall_control(t_map *map, int y, int x, int x_count);
 void	character_wall_control(t_map *map, int y, int x);
 
 //map_read
 void    map_read_y(t_map *map, char *file_name);
 void	map_read_control(t_map *map, char *file_name);
-
+int		map_read_y_len(char *file_name, int len, int fd, size_t read_result);
 
 
 //check_valid_path
@@ -109,7 +110,7 @@ void	valid_exit_control(t_map *map);
 void	free_map(char **map);
 
 //map_init
-void	put_Image(t_map *map, void *img, int x, int y);
+void	put_image(t_map *map, void *img, int x, int y);
 void	put_value(t_map *map, t_player *player, int x, int y);
 void	render_map(t_map *map, t_player *player, int x, int y);
 void	create_xpm(t_map *map);

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "so_long.h"
 
 void	free_map(char **map)
@@ -18,8 +17,7 @@ void	free_map(char **map)
 	int	i;
 
 	if (!map)
-		return;
-		
+		return ;
 	i = -1;
 	while (map[++i])
 		free(map[i]);

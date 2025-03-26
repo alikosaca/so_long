@@ -10,77 +10,61 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "so_long.h"
-
-// a..ber
 
 void	file_name_and_ac_control(char *file_name, int ac)
 {
-	int file_name_len;
+	int	file_name_len;
 
-    file_name_len = (int)ft_strlen(file_name);
-
+	file_name_len = (int)ft_strlen(file_name);
 	if (ac != 2)
 	{
 		error("ac number is wrong");
 	}
-    if (file_name[file_name_len - 4] == '.' && \
-        file_name[file_name_len - 3] == 'b' && \
-        file_name[file_name_len - 2] == 'e' && \
-        file_name[file_name_len - 1] == 'r' && \
-        file_name_len >= 5)
-    {
-        return ;
-    }
-    error("file name is incorrect!");
+	if (file_name[file_name_len - 4] == '.' && \
+		file_name[file_name_len - 3] == 'b' && \
+		file_name[file_name_len - 2] == 'e' && \
+		file_name[file_name_len - 1] == 'r' && \
+		file_name_len >= 5)
+	{
+		return ;
+	}
+	error("file name is incorrect!");
 }
 
-void    map_control(t_map *map, t_player *player)
+void	map_control(t_map *map, t_player *player)
 {
 	rectangle_control(map);
 	character_control(map, player);
-    check_walls_and_character(map);
-    check_valid_path(map, player);
+	check_walls_and_character(map);
+	check_valid_path(map, player);
 	free_map(map->map_line);
 }
 
-void    map_init(t_map *map, t_player *player, char *file_name)
+void	map_init(t_map *map, t_player *player, char *file_name)
 {
-	t_data data;
+	t_data	data;
+
 	data.map = map;
-	data.player = player;	
+	data.player = player;
 	map_read_control(map, file_name);
-	ft_printf("map_init1\n");
 	init_mlx(map);
-	ft_printf("map_init2\n");
 	create_xpm(map);
-	ft_printf("map_init3\n");
 	view_window(map);
-	ft_printf("map_init4\n");
-	render_map(map, player, 0 ,0);
-	ft_printf("map_init5\n");
+	render_map(map, player, 0, 0);
 	mlx_key_hook(map->mlx_win, key_hook, &data);
-	mlx_hook(map->mlx_win, 17, 1L<<17, close_game, map);
+	mlx_hook(map->mlx_win, 17, 1L << 17, close_game, map);
 	mlx_loop(map->mlx);
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
-	t_map *const map = &(t_map){0};
-	t_player *const player = &(t_player){0};
-		
+	t_map *const	map = &(t_map){0};
+	t_player *const	player = &(t_player){0};
+
 	file_name_and_ac_control(av[1], ac);
-	ft_printf("kontrolll1\n");
 	map_read_control(map, av[1]);
-	ft_printf("kontrolll2\n");
-
 	map_control(map, player);
-	ft_printf("kontrolll3\n");
-
 	map_init(map, player, av[1]);
-	ft_printf("kontrolll4\n");
-
 	return (0);
 }

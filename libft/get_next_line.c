@@ -67,7 +67,6 @@ char	*ft_new_line(char *stash)
 		return (NULL);
 	while (stash[i] && stash[i] != '\n')
 		i++;
-	// if (!stash[i])
 	if (!stash[i] || !stash[i + 1])
 		return (free(stash), NULL);
 	next_line = malloc(gnl_strlen(stash) - i + 1);
