@@ -26,15 +26,8 @@ void	rectangle_control(t_map *map)
 	{
 		if (!map->map_line[y_position])
 			break ;
-		x_len = 0;
-		while (map->map_line[y_position] && \
-				map->map_line[y_position][x_len] && \
-				map->map_line[y_position][x_len +1] != '\n' && \
-				map->map_line[y_position][x_len] != '\0')
-		{
-			x_len++;
-		}
-		if (x_len != x_first -2)
+		x_len = ft_strlen(map->map_line[y_position]);
+		if (x_len != x_first)
 			error_and_free(map->map_line, "the wall is faulty");
 		y_position++;
 	}

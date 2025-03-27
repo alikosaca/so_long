@@ -25,7 +25,7 @@ void	move_player(t_map *map, t_player *player, int new_y, int new_x)
 	{
 		if (player->coin_collected != map->coin_count)
 		{
-			ft_printf("collected:%d, coin:%d", \
+			ft_printf("collected:%d, coin:%d \n", \
 					player->coin_collected, map->coin_count);
 			return ;
 		}

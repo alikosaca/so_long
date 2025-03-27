@@ -46,7 +46,7 @@ void	view_window(t_map *map)
 	int	x_px;
 	int	y_px;
 
-	x_px = ((int)ft_strlen(map->map_line[0]) - 2) * 64;
+	x_px = ((int)ft_strlen(map->map_line[0])) * 64;
 	y_px = map->map_y_line * 64;
 	map->mlx_win = mlx_new_window(map->mlx, x_px, y_px, "SO_LONG");
 	if (!map->mlx || !map->mlx_win)
@@ -59,7 +59,7 @@ void	render_map(t_map *map, t_player *player, int x, int y)
 	{
 		x = 0;
 		while (map->map_line[y][x] && map->map_line[y][x] != '\n' && \
-				x < ((int)ft_strlen(map->map_line[0]) - 2))
+				x < ((int)ft_strlen(map->map_line[0])))
 		{
 			if (map->map_line[y][x] == '0')
 				put_image(map, map->img_space, x, y);

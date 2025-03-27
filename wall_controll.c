@@ -14,18 +14,13 @@
 
 void	wall_control(t_map *map, int y, int x, int x_count)
 {
-	int	i;
-
 	while (map->map_line[y])
 	{
-		i = 0;
 		x_count = ((int)ft_strlen(map->map_line[y]));
 		if (y == 0 || y == map->map_y_line - 1)
 		{
-			if (y == 0)
-				i = 2;
 			x = 0;
-			while (x < x_count - i)
+			while (x < x_count)
 			{
 				if (map->map_line[y][x] != WALL)
 					error_and_free(map->map_line, "WALL ERROR1");
@@ -34,7 +29,7 @@ void	wall_control(t_map *map, int y, int x, int x_count)
 		}
 		if (!(y == 0 || y == map->map_y_line - 1))
 			if (map->map_line[y][0] != WALL || \
-				map->map_line[y][x_count - 3] != WALL)
+				map->map_line[y][x_count - 1] != WALL)
 				error_and_free(map->map_line, "WALL ERROR2");
 		y++;
 	}
@@ -45,7 +40,7 @@ void	character_wall_control(t_map *map, int y, int x)
 	while (map->map_line[y])
 	{
 		x = 0;
-		while (x < (int)(ft_strlen(map->map_line[y]) - 2) && \
+		while (x < (int)(ft_strlen(map->map_line[y])) && \
 		map->map_line[y][x] != '\n' && map->map_line[y][x] != '\0')
 		{
 			if (ft_strchr(MAP_CHAR, map->map_line[y][x]) != NULL)

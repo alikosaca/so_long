@@ -20,8 +20,6 @@
 #  define BUFFER_SIZE 42
 # endif
 
-
-
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
@@ -60,15 +58,12 @@ char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				**ft_split(char const *s, char c);
 
+char				*get_next_line(int fd);
 
-char	*get_next_line(int fd);
-
-char	*gnl_strjoin(char *s1, char *s2);
-char	*gnl_strcpy(char *s1, char *s2, int n);
-int		gnl_strchr(const char *s);
-size_t	gnl_strlen(const char *s);
-
-
+char				*gnl_strjoin(char *s1, char *s2);
+char				*gnl_strcpy(char *s1, char *s2, int n);
+int					gnl_strchr(const char *s);
+size_t				gnl_strlen(const char *s);
 
 typedef struct s_list
 {

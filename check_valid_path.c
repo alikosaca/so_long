@@ -46,7 +46,7 @@ void	valid_coin_control(t_map *map)
 	while (map->map_line[y])
 	{
 		x = 0;
-		x_count = (int)ft_strlen(map->map_line[y]) - 2;
+		x_count = (int)ft_strlen(map->map_line[y]);
 		while (x < x_count)
 		{
 			if (map->map_line[y][x] == COIN)

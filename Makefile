@@ -3,6 +3,7 @@ CC        = cc
 CFLAGS    = -Wall -Wextra -Werror
 RM		  = rm -f
 MLX_PATH  = minilibx-linux
+MLX_REPO  = https://github.com/42Paris/minilibx-linux.git
 MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11
 LIBFT		= libft/libft.a
 FT_PRINTF	= ft_printf/libftprintf.a
@@ -20,6 +21,9 @@ SRCS		= check_valid_path.c \
 OBJS		= $(SRCS:.c=.o)
 
 all: $(MLX_PATH)/libmlx.a $(LIBFT) $(FT_PRINTF) $(NAME)
+
+$(MLX_PATH):
+	git clone $(MLX_REPO)
 
 $(MLX_PATH)/libmlx.a: $(MLX_PATH)
 	make -C $(MLX_PATH)
