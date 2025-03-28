@@ -14,21 +14,19 @@
 
 void	file_name_and_ac_control(char *file_name, int ac)
 {
-	int	file_name_len;
+	int		file_name_len;
 
+	file_name = ft_strchr(file_name, '/');
+	file_name++;
 	file_name_len = (int)ft_strlen(file_name);
 	if (ac != 2)
-	{
 		error("ac number is wrong");
-	}
 	if (file_name[file_name_len - 4] == '.' && \
 		file_name[file_name_len - 3] == 'b' && \
 		file_name[file_name_len - 2] == 'e' && \
 		file_name[file_name_len - 1] == 'r' && \
 		file_name_len >= 5)
-	{
 		return ;
-	}
 	error("file name is incorrect!");
 }
 

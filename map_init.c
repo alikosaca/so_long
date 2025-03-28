@@ -24,21 +24,24 @@ void	create_xpm(t_map *map)
 	int	x;
 	int	y;
 
-	map->img_coin = mlx_xpm_file_to_image(map->mlx, "./img/coin.xpm", \
+	map->img_coin = mlx_xpm_file_to_image(map->mlx, "./textures/coin.xpm", \
 											&x, &y);
-	map->img_exit1 = mlx_xpm_file_to_image(map->mlx, "./img/exit_1.xpm", \
+	map->img_exit1 = mlx_xpm_file_to_image(map->mlx, "./textures/exit_1.xpm", \
 											&x, &y);
-	map->img_exit2 = mlx_xpm_file_to_image(map->mlx, "./img/exit_2.xpm", \
+	map->img_exit2 = mlx_xpm_file_to_image(map->mlx, "./textures/exit_2.xpm", \
 											&x, &y);
-	map->img_player = mlx_xpm_file_to_image(map->mlx, "./img/player.xpm", \
+	map->img_player = mlx_xpm_file_to_image(map->mlx, "./textures/player.xpm", \
 											&x, &y);
-	map->img_space = mlx_xpm_file_to_image(map->mlx, "./img/space.xpm", \
+	map->img_space = mlx_xpm_file_to_image(map->mlx, "./textures/space.xpm", \
 											&x, &y);
-	map->img_wall = mlx_xpm_file_to_image(map->mlx, "./img/wall.xpm", \
+	map->img_wall = mlx_xpm_file_to_image(map->mlx, "./textures/wall.xpm", \
 											&x, &y);
 	if (!map->img_coin || !map->img_exit1 || !map->img_exit2 || \
 		!map->img_player || !map->img_space || !map->img_wall)
-		error_and_free(map->map_line, "ERROR XPM");
+	{
+		ft_printf("Image/images could not be loaded!\n");
+		close_game(map);
+	}
 }
 
 void	view_window(t_map *map)
@@ -48,7 +51,7 @@ void	view_window(t_map *map)
 
 	x_px = ((int)ft_strlen(map->map_line[0])) * 64;
 	y_px = map->map_y_line * 64;
-	map->mlx_win = mlx_new_window(map->mlx, x_px, y_px, "SO_LONG");
+	map->mlx_win = mlx_new_window(map->mlx, x_px, y_px, "so_long");
 	if (!map->mlx || !map->mlx_win)
 		error_view_window(map);
 }

@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
+# include "libft/ft_printf/ft_printf.h"
 # include "minilibx-linux/mlx.h"
 # include <unistd.h>
 # include <fcntl.h>
@@ -92,6 +92,7 @@ void	character_wall_control(t_map *map, int y, int x);
 
 void	map_read_control(t_map *map, char *file_name);
 void	map_read_y(t_map *map, char *file_name);
+void	map_x_control(t_map *map, int i);
 int		map_read_y_len(char *file_name);
 
 void	check_valid_path(t_map *map, t_player *player);
@@ -110,10 +111,9 @@ void	view_window(t_map *map);
 void	init_mlx(t_map *map);
 
 void	move_player(t_map *map, t_player *player, int new_y, int new_x);
+void	door_move(t_map *map, t_player *player, int new_y, int new_x);
 int		close_game(t_map *map);
 int		key_hook(int keycode, t_data *data);
 void	new_location(t_map *map, t_player *player, int new_y, int new_x);
-
-// yaycicek.c
 
 #endif

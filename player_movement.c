@@ -16,21 +16,12 @@ void	move_player(t_map *map, t_player *player, int new_y, int new_x)
 {
 	if (map->map_line[new_y][new_x] == WALL)
 		return ;
+	if (map->map_line[new_y][new_x] == DOOR)
+		door_move(map, player, new_y, new_x);
 	if (map->map_line[new_y][new_x] == COIN)
 	{
 		player->coin_collected++;
 		map->map_line[new_y][new_x] = SPACE;
-	}
-	if (map->map_line[new_y][new_x] == DOOR)
-	{
-		if (player->coin_collected != map->coin_count)
-		{
-			ft_printf("collected:%d, coin:%d \n", \
-					player->coin_collected, map->coin_count);
-			return ;
-		}
-		ft_printf("Victory!\nCongratulations! Moves: %d\n", map->p_move_count);
-		close_game(map);
 	}
 	if (player->coin_collected == map->coin_count)
 	{
@@ -41,10 +32,32 @@ void	move_player(t_map *map, t_player *player, int new_y, int new_x)
 	new_location(map, player, new_y, new_x);
 }
 
+void	door_move(t_map *map, t_player *player, int new_y, int new_x)
+{
+	if (player->coin_collected == map->coin_count)
+	{
+		ft_printf("Victory!\nCongratulations! Moves: %d\n", map->p_move_count);
+		close_game(map);
+	}
+	else
+	{
+		new_location(map, player, new_y, new_x);
+	}
+}
+
 void	new_location(t_map *map, t_player *player, int new_y, int new_x)
 {
-	map->map_line[player->p_y_loc][player->p_x_loc] = SPACE;
-	put_image(map, map->img_space, player->p_x_loc, player->p_y_loc);
+	if (player->p_x_loc == player->e_x_loc && \
+		player->p_y_loc == player->e_y_loc)
+	{
+		map->map_line[player->p_y_loc][player->p_x_loc] = DOOR;
+		put_image(map, map->img_exit1, player->p_x_loc, player->p_y_loc);
+	}
+	else
+	{
+		map->map_line[player->p_y_loc][player->p_x_loc] = SPACE;
+		put_image(map, map->img_space, player->p_x_loc, player->p_y_loc);
+	}
 	map->map_line[new_y][new_x] = PLAYER;
 	put_image(map, map->img_player, new_x, new_y);
 	player->p_x_loc = new_x;
