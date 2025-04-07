@@ -17,31 +17,25 @@ void	move_player(t_map *map, t_player *player, int new_y, int new_x)
 	if (map->map_line[new_y][new_x] == WALL)
 		return ;
 	if (map->map_line[new_y][new_x] == DOOR)
-		door_move(map, player, new_y, new_x);
+		door_move(map, player);
 	if (map->map_line[new_y][new_x] == COIN)
 	{
 		player->coin_collected++;
 		map->map_line[new_y][new_x] = SPACE;
 	}
-	if (player->coin_collected == map->coin_count)
-	{
-		put_image(map, map->img_exit2, player->e_x_loc, player->e_y_loc);
-	}
 	map->p_move_count++;
 	ft_printf("Moves: %d\n", map->p_move_count);
 	new_location(map, player, new_y, new_x);
+	if (player->coin_collected == map->coin_count)
+		put_image(map, map->img_exit2, player->e_x_loc, player->e_y_loc);
 }
 
-void	door_move(t_map *map, t_player *player, int new_y, int new_x)
+void	door_move(t_map *map, t_player *player)
 {
 	if (player->coin_collected == map->coin_count)
 	{
 		ft_printf("Victory!\nCongratulations! Moves: %d\n", map->p_move_count);
 		close_game(map);
-	}
-	else
-	{
-		new_location(map, player, new_y, new_x);
 	}
 }
 

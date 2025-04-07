@@ -111,7 +111,7 @@ void	view_window(t_map *map);
 void	init_mlx(t_map *map);
 
 void	move_player(t_map *map, t_player *player, int new_y, int new_x);
-void	door_move(t_map *map, t_player *player, int new_y, int new_x);
+void	door_move(t_map *map, t_player *player);
 int		close_game(t_map *map);
 int		key_hook(int keycode, t_data *data);
 void	new_location(t_map *map, t_player *player, int new_y, int new_x);
